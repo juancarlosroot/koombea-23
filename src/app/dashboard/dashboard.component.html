@@ -1,0 +1,62 @@
+<div class="container flex">
+  <div class="w-2/6">
+    <div *ngIf="!createObject; else elseBlock" class="flex justify-center gap-4 my-8">
+
+      <a class="px-4 py-2 font-semibold text-sm bg-cyan-500 text-white rounded-sm shadow-sm" [href]="fileUrl" download="file.txt">Download File</a>
+
+      <button class="px-4 py-2 font-semibold text-sm bg-cyan-500 text-white rounded-sm shadow-sm" (click)="createObject = true">
+        Create Table
+      </button>
+
+    </div>
+    <ng-template #elseBlock>
+      <form [formGroup]="createTableForm" (ngSubmit)="createTable()" class="flex justify-center gap-4 my-8">
+        <input type="text" placeholder="Table name" formControlName="name" class="border border-cyan-500 px-4">
+        <input type="submit" value="Add"
+               [disabled]="!createTableForm.valid"
+               class="px-4 py-2 font-semibold text-sm {{createTableForm.valid ? 'bg-cyan-500' : 'bg-cyan-100'}} text-white rounded-sm shadow-sm">
+      </form>
+    </ng-template>
+
+    <div *ngFor="let mTable of mArrayTables$ | async ; let i = index" class="w-full" [id]="i">
+      <div class="w-full py-2 border border-amber-100 text-center mx-4" >{{mTable.name}}</div>
+
+      <div class="w-full flex justify-between px-8 my-2" *ngFor="let mColumn of mTable.columns ; let c = index">
+        <div class="w-2/6">
+          {{mColumn.name}}
+        </div>
+        <div class="w-2/6">
+          <select [(ngModel)]="mColumn.type" (ngModelChange)="updateColumn(mTable)" class="px-2 pb-1">
+            <option value="0">Boolean</option>
+            <option value="1">Integer</option>
+            <option value="2">String</option>
+          </select>
+        </div>
+        <button class="w-1/6 {{mColumn.relation.columnName.length === 0 ? 'opacity-30' : 'opacity-100'}} hover:opacity-100" (click)="createRelationShip(mTable, mColumn)">
+          {{mColumn.relation.columnName.length === 0 ? '🔑' : '🔑❌'}}
+        </button>
+        <button class="w-1/6" (click)="deleteColumn(mTable, mColumn)">
+          🗑️
+        </button>
+      </div>
+
+      <div class="w-full flex justify-between px-8 my-2">
+        <button class="px-2 py-1 font-semibold text-sm border border-cyan-100 text-cyan-100 hover:border-red-700 hover:text-cyan-500 rounded-sm shadow-sm" (click)="deleteTable(mTable)">
+          Delete
+        </button>
+<!--        <button class="px-2 py-1 font-semibold text-sm border border-cyan-500 text-cyan-500 rounded-sm shadow-sm">-->
+<!--          Color-->
+<!--        </button>-->
+        <button class="px-2 py-1 font-semibold text-sm border border-cyan-500 text-cyan-500 rounded-sm shadow-sm" (click)="createColumn(mTable)">
+          New Column
+        </button>
+      </div>
+    </div>
+
+  </div>
+  <div class="w-4/6 px-8" id="my_board">
+    <svg class="w-full h-full pt-8" height="1000px">
+
+    </svg>
+  </div>
+</div>

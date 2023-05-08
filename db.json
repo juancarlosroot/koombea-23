@@ -1,0 +1,115 @@
+{
+  "tables": [
+    {
+      "name": "users",
+      "id": 1,
+      "columns": [
+        {
+          "name": "userId",
+          "type": 1,
+          "relation": {
+            "tableId": "",
+            "columnName": ""
+          }
+        },
+        {
+          "name": "userUrl",
+          "type": 0,
+          "relation": {
+            "tableId": "",
+            "columnName": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "posts",
+      "id": 2,
+      "columns": [
+        {
+          "name": "postId",
+          "type": 1,
+          "relation": {
+            "tableId": "",
+            "columnName": ""
+          }
+        },
+        {
+          "name": "ownerId",
+          "type": 1,
+          "relation": {
+            "tableId": "",
+            "columnName": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "comments",
+      "id": 3,
+      "columns": [
+        {
+          "name": "idComment",
+          "type": 0,
+          "relation": {
+            "tableId": "",
+            "columnName": ""
+          }
+        },
+        {
+          "name": "postId",
+          "type": 0,
+          "relation": {
+            "tableId": "",
+            "columnName": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "reactions",
+      "id": 4,
+      "columns": [
+        {
+          "name": "reactionId",
+          "type": 0,
+          "relation": {
+            "tableId": "",
+            "tableName": "",
+            "columnName": ""
+          }
+        },
+        {
+          "name": "userId",
+          "type": 0,
+          "relation": {
+            "tableId": "",
+            "tableName": "",
+            "columnName": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "albums",
+      "id": 5,
+      "columns": [
+        {
+          "name": "ownerId",
+          "type": 1,
+          "relation": {
+            "tableId": "1",
+            "columnName": "userId",
+            "tableName": "users"
+          }
+        }
+      ]
+    }
+  ],
+  "relationships": {
+    "4": [],
+    "5": [
+      1
+    ]
+  }
+}
